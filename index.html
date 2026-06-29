@@ -1,0 +1,1106 @@
+<!DOCTYPE html><html lang="en"><head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>!!⚜️9MAN-X-YAMDHUD||⚜️</title>
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+        }
+
+        .container {
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+            width: 100%;
+
+            max-width: 900px;
+
+            overflow: hidden;
+
+        }
+
+        .header {
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            color: white;
+
+            padding: 30px;
+
+            text-align: center;
+
+        }
+
+        .header h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 10px;
+
+        }
+
+        .header p {
+
+            opacity: 0.9;
+
+            font-size: 14px;
+
+        }
+
+        .content {
+
+            padding: 40px;
+
+        }
+
+        .login-form, .feature-selection, .feature-panel {
+
+            display: none;
+
+        }
+
+        .login-form.active, .feature-selection.active, .feature-panel.active {
+
+            display: block;
+
+        }
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+        label {
+
+            display: block;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+
+            color: #333;
+
+        }
+
+        input, textarea, select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 2px solid #e0e0e0;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition: border-color 0.3s;
+
+        }
+
+        input:focus, textarea:focus, select:focus {
+
+            outline: none;
+
+            border-color: #667eea;
+
+        }
+
+        textarea {
+
+            resize: vertical;
+
+            min-height: 80px;
+
+        }
+
+        .btn {
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 28px;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            width: 100%;
+
+        }
+
+        .btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+
+        }
+
+        .btn:active {
+
+            transform: translateY(0);
+
+        }
+
+        .btn-secondary {
+
+            background: #6c757d;
+
+            margin-top: 10px;
+
+        }
+
+        .btn-danger {
+
+            background: #dc3545;
+
+            padding: 8px 16px;
+
+            font-size: 14px;
+
+            width: auto;
+
+        }
+
+        .feature-cards {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 20px;
+
+            margin-top: 20px;
+
+        }
+
+        .feature-card {
+
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: transform 0.3s, box-shadow 0.3s;
+
+        }
+
+        .feature-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .feature-card h3 {
+
+            color: #333;
+
+            margin-bottom: 10px;
+
+            font-size: 20px;
+
+        }
+
+        .feature-card p {
+
+            color: #666;
+
+            font-size: 14px;
+
+        }
+
+        .task-list {
+
+            margin-top: 30px;
+
+        }
+
+        .task-item {
+
+            background: #f8f9fa;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            margin-bottom: 15px;
+
+            border-left: 4px solid #667eea;
+
+        }
+
+        .task-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 10px;
+
+        }
+
+        .task-info {
+
+            flex: 1;
+
+        }
+
+        .task-info h4 {
+
+            color: #333;
+
+            margin-bottom: 5px;
+
+        }
+
+        .task-details {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+            gap: 10px;
+
+            margin-top: 10px;
+
+            font-size: 13px;
+
+        }
+
+        .task-detail {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+        .task-detail-label {
+
+            color: #666;
+
+            font-weight: 600;
+
+            margin-bottom: 2px;
+
+        }
+
+        .task-detail-value {
+
+            color: #333;
+
+        }
+
+        .status-badge {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+        .status-running {
+
+            background: #d4edda;
+
+            color: #155724;
+
+        }
+
+        .status-stopped {
+
+            background: #f8d7da;
+
+            color: #721c24;
+
+        }
+
+        .status-expired {
+
+            background: #fff3cd;
+
+            color: #856404;
+
+        }
+
+        .alert {
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .alert-success {
+
+            background: #d4edda;
+
+            color: #155724;
+
+            border: 1px solid #c3e6cb;
+
+        }
+
+        .alert-error {
+
+            background: #f8d7da;
+
+            color: #721c24;
+
+            border: 1px solid #f5c6cb;
+
+        }
+
+        .back-btn {
+
+            background: #6c757d;
+
+            display: inline-block;
+
+            padding: 10px 20px;
+
+            margin-bottom: 20px;
+
+            cursor: pointer;
+
+        }
+
+        .loading {
+
+            text-align: center;
+
+            padding: 20px;
+
+            color: #667eea;
+
+        }
+
+        @keyframes spin {
+
+            to { transform: rotate(360deg); }
+
+        }
+
+        .spinner {
+
+            display: inline-block;
+
+            width: 20px;
+
+            height: 20px;
+
+            border: 3px solid rgba(102, 126, 234, 0.3);
+
+            border-radius: 50%;
+
+            border-top-color: #667eea;
+
+            animation: spin 0.8s linear infinite;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>🚀 ⚜️!⚜️9MAN-X-YAMDHUD|| BOT NAME LOCKR⚜️</h1>
+
+            <p>Powerful automation tools for Facebook Messenger</p>
+
+        </div>
+
+        <div class="content">
+
+            <!-- Login Form -->
+
+            <div class="login-form active" id="loginForm">
+
+                <h2 style="margin-bottom: 20px; color: #333;">Login to Continue</h2>
+
+                <div id="loginAlert"></div>
+
+                <form onsubmit="handleLogin(event)">
+
+                    <div class="form-group">
+
+                        <label for="username">Username</label>
+
+                        <input type="text" id="username" required="">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="password">Password</label>
+
+                        <input type="password" id="password" required="">
+
+                    </div>
+
+                    <button type="submit" class="btn">Login</button>
+
+                </form>
+
+                <p style="margin-top: 20px; text-align: center; color: #666; font-size: 14px;">
+
+                    Default credentials
+
+                </p>
+
+            </div>
+
+            <!-- Feature Selection -->
+
+            <div class="feature-selection" id="featureSelection">
+
+                <h2 style="margin-bottom: 20px; color: #333;">Select Feature</h2>
+
+                <div class="feature-cards">
+
+                    <div class="feature-card" onclick="showFeature('messageSender')">
+
+                        <h3>💬 Message Sender</h3>
+
+                        <p>Send automated messages to users or groups with custom delays</p>
+
+                    </div>
+
+                    <div class="feature-card" onclick="showFeature('groupMonitor')">
+
+                        <h3>🔒 Group Name Monitor</h3>
+
+                        <p>Automatically restore group name when changed</p>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+
+            </div>
+
+            <!-- Message Sender Panel -->
+
+            <div class="feature-panel" id="messageSenderPanel">
+
+                <button class="back-btn" onclick="showFeatureSelection()">← Back</button>
+
+                <h2 style="margin-bottom: 20px; color: #333;">Message Sender</h2>
+
+                <div id="messageSenderAlert"></div>
+
+                
+
+                <form onsubmit="handleMessageSenderLogin(event)">
+
+                    <div class="form-group">
+
+                        <label for="msgCookies">Facebook Cookies</label>
+
+                        <textarea id="msgCookies" rows="3" required="" placeholder="Paste your Facebook cookies here"></textarea>
+
+                    </div>
+
+                    <button type="submit" class="btn">Add Account</button>
+
+                </form>
+
+                <div id="msgAccountsList"></div>
+
+                <form onsubmit="handleStartMessageSender(event)" style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #e0e0e0;">
+
+                    <h3 style="margin-bottom: 20px; color: #333;">Configure Message Sending</h3>
+
+                    <div class="form-group">
+
+                        <label for="targetUid">Target User/Group ID</label>
+
+                        <input type="text" id="targetUid" required="">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="hatersName">Prefix Text</label>
+
+                        <input type="text" id="hatersName" required="" placeholder="e.g., Hello">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="delay">Delay (seconds)</label>
+
+                        <input type="number" id="delay" required="" min="1" value="5">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="messages">Messages File (one message per line)</label>
+
+                        <input type="file" id="messages" accept=".txt" required="">
+
+                    </div>
+
+                    <button type="submit" class="btn">Start Sending</button>
+
+                </form>
+
+                <div class="task-list" id="msgTaskList"></div>
+
+            </div>
+
+            <!-- Group Monitor Panel -->
+
+            <div class="feature-panel" id="groupMonitorPanel">
+
+                <button class="back-btn" onclick="showFeatureSelection()">← Back</button>
+
+                <h2 style="margin-bottom: 20px; color: #333;">Group Name Monitor</h2>
+
+                <div id="groupMonitorAlert"></div>
+
+                
+
+                <form onsubmit="handleGroupMonitorStart(event)">
+
+                    <div class="form-group">
+
+                        <label for="grpCookies">Facebook Cookies</label>
+
+                        <textarea id="grpCookies" rows="3" required="" placeholder="Paste your Facebook cookies here"></textarea>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="groupId">Group ID</label>
+
+                        <input type="text" id="groupId" required="">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="desiredGroupName">Desired Group Name</label>
+
+                        <input type="text" id="desiredGroupName" required="">
+
+                    </div>
+
+                    <button type="submit" class="btn">Start Monitoring</button>
+
+                </form>
+
+                <div class="task-list" id="grpTaskList"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let loggedIn = false;
+
+        let currentFeature = null;
+
+        let taskRefreshInterval = null;
+
+        function showAlert(elementId, message, type) {
+
+            const alertDiv = document.getElementById(elementId);
+
+            alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+
+            setTimeout(() => {
+
+                alertDiv.innerHTML = '';
+
+            }, 5000);
+
+        }
+
+        async function handleLogin(event) {
+
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+
+            const password = document.getElementById('password').value;
+
+            try {
+
+                const response = await fetch('/api/login', {
+
+                    method: 'POST',
+
+                    headers: { 'Content-Type': 'application/json' },
+
+                    body: JSON.stringify({ username, password })
+
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    loggedIn = true;
+
+                    showFeatureSelection();
+
+                } else {
+
+                    showAlert('loginAlert', 'Invalid username or password', 'error');
+
+                }
+
+            } catch (error) {
+
+                showAlert('loginAlert', 'Login failed. Please try again.', 'error');
+
+            }
+
+        }
+
+        function showFeatureSelection() {
+
+            document.getElementById('loginForm').classList.remove('active');
+
+            document.getElementById('featureSelection').classList.add('active');
+
+            document.getElementById('messageSenderPanel').classList.remove('active');
+
+            document.getElementById('groupMonitorPanel').classList.remove('active');
+
+            
+
+            if (taskRefreshInterval) {
+
+                clearInterval(taskRefreshInterval);
+
+                taskRefreshInterval = null;
+
+            }
+
+        }
+
+        function showFeature(feature) {
+
+            document.getElementById('featureSelection').classList.remove('active');
+
+            
+
+            if (feature === 'messageSender') {
+
+                currentFeature = 'message';
+
+                document.getElementById('messageSenderPanel').classList.add('active');
+
+                loadTasks('message');
+
+                taskRefreshInterval = setInterval(() => loadTasks('message'), 3000);
+
+            } else if (feature === 'groupMonitor') {
+
+                currentFeature = 'group';
+
+                document.getElementById('groupMonitorPanel').classList.add('active');
+
+                loadTasks('group');
+
+                taskRefreshInterval = setInterval(() => loadTasks('group'), 3000);
+
+            }
+
+        }
+
+        function logout() {
+
+            loggedIn = false;
+
+            document.getElementById('featureSelection').classList.remove('active');
+
+            document.getElementById('loginForm').classList.add('active');
+
+            document.getElementById('username').value = '';
+
+            document.getElementById('password').value = '';
+
+        }
+
+        async function handleMessageSenderLogin(event) {
+
+            event.preventDefault();
+
+            const cookies = document.getElementById('msgCookies').value;
+
+            try {
+
+                const response = await fetch('/api/message-sender/login', {
+
+                    method: 'POST',
+
+                    headers: { 'Content-Type': 'application/json' },
+
+                    body: JSON.stringify({ cookies })
+
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    showAlert('messageSenderAlert', `Account added successfully! UID: ${data.uid}`, 'success');
+
+                    document.getElementById('msgCookies').value = '';
+
+                    loadTasks('message');
+
+                } else {
+
+                    showAlert('messageSenderAlert', data.error || 'Failed to add account', 'error');
+
+                }
+
+            } catch (error) {
+
+                showAlert('messageSenderAlert', 'Failed to add account. Please try again.', 'error');
+
+            }
+
+        }
+
+        async function handleStartMessageSender(event) {
+
+            event.preventDefault();
+
+            
+
+            const formData = new FormData();
+
+            formData.append('targetUid', document.getElementById('targetUid').value);
+
+            formData.append('hatersName', document.getElementById('hatersName').value);
+
+            formData.append('delay', document.getElementById('delay').value);
+
+            formData.append('messages', document.getElementById('messages').files[0]);
+
+            try {
+
+                const response = await fetch('/api/message-sender/start', {
+
+                    method: 'POST',
+
+                    body: formData
+
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    showAlert('messageSenderAlert', data.message, 'success');
+
+                    loadTasks('message');
+
+                } else {
+
+                    showAlert('messageSenderAlert', data.error || 'Failed to start sending', 'error');
+
+                }
+
+            } catch (error) {
+
+                showAlert('messageSenderAlert', 'Failed to start sending. Please try again.', 'error');
+
+            }
+
+        }
+
+        async function handleGroupMonitorStart(event) {
+
+            event.preventDefault();
+
+            
+
+            const cookies = document.getElementById('grpCookies').value;
+
+            const groupId = document.getElementById('groupId').value;
+
+            const desiredGroupName = document.getElementById('desiredGroupName').value;
+
+            try {
+
+                const response = await fetch('/api/group-monitor/start', {
+
+                    method: 'POST',
+
+                    headers: { 'Content-Type': 'application/json' },
+
+                    body: JSON.stringify({ cookies, groupId, desiredGroupName })
+
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    showAlert('groupMonitorAlert', data.message, 'success');
+
+                    document.getElementById('grpCookies').value = '';
+
+                    document.getElementById('groupId').value = '';
+
+                    document.getElementById('desiredGroupName').value = '';
+
+                    loadTasks('group');
+
+                } else {
+
+                    showAlert('groupMonitorAlert', data.error || 'Failed to start monitoring', 'error');
+
+                }
+
+            } catch (error) {
+
+                showAlert('groupMonitorAlert', 'Failed to start monitoring. Please try again.', 'error');
+
+            }
+
+        }
+
+        async function loadTasks(type) {
+
+            try {
+
+                const response = await fetch('/api/tasks');
+
+                const data = await response.json();
+
+                
+
+                const tasks = data.tasks.filter(t => t.type === type);
+
+                const listId = type === 'message' ? 'msgTaskList' : 'grpTaskList';
+
+                const listElement = document.getElementById(listId);
+
+                if (tasks.length === 0) {
+
+                    listElement.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No active tasks</p>';
+
+                    return;
+
+                }
+
+                listElement.innerHTML = '<h3 style="margin-bottom: 15px; color: #333;">Running Tasks</h3>' + 
+
+                    tasks.map(task => {
+
+                        const statusClass = task.cookieStatus === 'expired' ? 'status-expired' : 
+
+                                          task.status === 'running' ? 'status-running' : 'status-stopped';
+
+                        const statusText = task.cookieStatus === 'expired' ? 'Cookies Expired' : 
+
+                                         task.status === 'running' ? 'Running' : 'Stopped';
+
+                        return `
+
+                            <div class="task-item">
+
+                                <div class="task-header">
+
+                                    <div class="task-info">
+
+                                        <h4>UID: ${task.uid}</h4>
+
+                                        <span class="status-badge ${statusClass}">${statusText}</span>
+
+                                    </div>
+
+                                    <button class="btn btn-danger" onclick="stopTask('${task.uid}')">Stop</button>
+
+                                </div>
+
+                                <div class="task-details">
+
+                                    ${type === 'message' ? `
+
+                                        <div class="task-detail">
+
+                                            <span class="task-detail-label">Target:</span>
+
+                                            <span class="task-detail-value">${task.targetUid}</span>
+
+                                        </div>
+
+                                        <div class="task-detail">
+
+                                            <span class="task-detail-label">Prefix:</span>
+
+                                            <span class="task-detail-value">${task.hatersName}</span>
+
+                                        </div>
+
+                                        <div class="task-detail">
+
+                                            <span class="task-detail-label">Delay:</span>
+
+                                            <span class="task-detail-value">${task.delay}s</span>
+
+                                        </div>
+
+                                    ` : `
+
+                                        <div class="task-detail">
+
+                                            <span class="task-detail-label">Group ID:</span>
+
+                                            <span class="task-detail-value">${task.groupId}</span>
+
+                                        </div>
+
+                                        <div class="task-detail">
+
+                                            <span class="task-detail-label">Group Name:</span>
+
+                                            <span class="task-detail-value">${task.desiredGroupName}</span>
+
+                                        </div>
+
+                                    `}
+
+                                    <div class="task-detail">
+
+                                        <span class="task-detail-label">Uptime:</span>
+
+                                        <span class="task-detail-value">${task.uptime}</span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }).join('');
+
+            } catch (error) {
+
+                console.error('Failed to load tasks:', error);
+
+            }
+
+        }
+
+        async function stopTask(uid) {
+
+            if (!confirm('Are you sure you want to stop this task?')) return;
+
+            try {
+
+                const response = await fetch('/api/stop', {
+
+                    method: 'POST',
+
+                    headers: { 'Content-Type': 'application/json' },
+
+                    body: JSON.stringify({ uid })
+
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    loadTasks(currentFeature);
+
+                }
+
+            } catch (error) {
+
+                console.error('Failed to stop task:', error);
+
+            }
+
+        }
+
+    </script>
+
+
+
+
+</body></html>
