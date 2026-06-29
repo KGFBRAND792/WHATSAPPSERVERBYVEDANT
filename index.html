@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp tool by Xmarty Ayush King</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(20, 20, 45, 0.92);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(98, 114, 164, 0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid rgba(100, 140, 255, 0.18);
+            backdrop-filter: blur(8px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
+            color: #e0f2fe;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(100, 140, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.5);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(30, 30, 60, 0.7);
+            border-bottom: 2px solid rgba(100, 140, 255, 0.15);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #a0a0ff;
+            transition: all 0.3s;
+            border: none;
+            background: transparent;
+        }
+
+        .tab:hover {
+            color: #c7d2fe;
+            background: rgba(50, 50, 90, 0.4);
+        }
+
+        .tab.active {
+            background: rgba(20, 20, 45, 0.9);
+            color: #60a5fa;
+            border-bottom: 3px solid #3b82f6;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #c7d2fe;
+            font-size: 1em;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(100, 140, 255, 0.3);
+            border-radius: 10px;
+            font-size: 1em;
+            background: rgba(30, 30, 60, 0.6);
+            color: #e0e0ff;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+            background: rgba(40, 40, 80, 0.7);
+        }
+
+        button {
+            background: linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.55);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #4b5563;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            border: 1px solid rgba(100, 140, 255, 0.2);
+        }
+
+        .result.success {
+            background: rgba(21, 85, 36, 0.3);
+            border-color: #4ade80;
+            color: #a7f3d0;
+        }
+
+        .result.error {
+            background: rgba(114, 17, 23, 0.3);
+            border-color: #f87171;
+            color: #fecaca;
+        }
+
+        .result.info {
+            background: rgba(12, 74, 96, 0.3);
+            border-color: #67e8f9;
+            color: #a5f3fc;
+        }
+
+        .pairing-code {
+            font-size: 2.2em;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 4px;
+            margin: 20px 0;
+            padding: 18px;
+            background: rgba(30, 40, 80, 0.6);
+            border-radius: 12px;
+            color: #93c5fd;
+            border: 2px dashed #60a5fa;
+        }
+
+        .key-display {
+            background: rgba(30, 40, 80, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            word-break: break-all;
+            font-family: monospace;
+            border: 2px solid #60a5fa;
+            color: #bfdbfe;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top: 4px solid #60a5fa;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid #fbbf24;
+            color: #fef3c7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #fde047;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tab {
+                padding: 15px 10px;
+                font-size: 0.9em;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>XMARTY AYUSH KING</h1>
+            <p>WHATSAPP OFFLINE SERVER</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('start')">▶️ Start Process</button>
+            <button class="tab" onclick="switchTab('stop')">⏹️ Stop Process</button>
+        </div>
+
+        <!-- Start Process Tab -->
+        <div id="start-tab" class="tab-content active">
+            <div class="info-box">
+                <strong>📱 How to use:</strong>
+                1. Enter your phone number with country code<br>
+                2. Get pairing code and link device<br>
+                3. Select target group and upload messages<br>
+                4. Start Loder!
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number (with country code):</label>
+                    <input type="text" id="phoneNumber" placeholder="e.g., 919919180262" required>
+                </div>
+
+                <button type="submit" id="loginBtn">Connect WhatsApp</button>
+            </form>
+
+            <div class="loading" id="loginLoading">
+                <div class="spinner"></div>
+                <p>Connecting to WhatsApp...</p>
+            </div>
+
+            <div id="loginResult" class="result"></div>
+
+            <div id="messagingSection" style="display: none;">
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid rgba(100,140,255,0.15);">
+                
+                <form id="messagingForm">
+                    <div class="form-group">
+                        <label for="target">Target (Group ID or Phone Number):</label>
+                        <input type="text" id="target" placeholder="e.g., 120363XXXXXX@g.us or 919876543210" required>
+                        <button type="button" onclick="fetchGroups()" style="margin-top: 10px; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            📋 Fetch My Groups
+                        </button>
+                    </div>
+
+                    <div id="groupsList" style="display: none; margin-top: 15px;">
+                        <label>Select Group:</label>
+                        <select id="groupSelect" onchange="selectGroup()">
+                            <option value="">-- Select a group --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hatersName">Haters Name</label>
+                        <input type="text" id="hatersName" placeholder="e.g., Hello" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="messageFile">Upload Message File (.txt):</label>
+                        <input type="file" id="messageFile" accept=".txt" required>
+                        <small style="color: #a0a0ff; display: block; margin-top: 5px;">
+                            Each line in the file will be sent as a separate message
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="speed">Message Interval (seconds):</label>
+                        <input type="number" id="speed" min="1" value="5" required>
+                    </div>
+
+                    <button type="submit" id="startBtn">🚀 Start Loder</button>
+                </form>
+
+                <div class="loading" id="messagingLoading">
+                    <div class="spinner"></div>
+                    <p>Starting automation...</p>
+                </div>
+
+                <div id="messagingResult" class="result"></div>
+            </div>
+        </div>
+
+        <!-- Stop Process Tab -->
+        <div id="stop-tab" class="tab-content">
+            <div class="info-box">
+                <strong>⚠️ Stop Process:</strong>
+                Enter your unique key to stop the automation and logout from WhatsApp.
+            </div>
+
+            <form id="stopForm">
+                <div class="form-group">
+                    <label for="stopKey">Unique Key:</label>
+                    <input type="text" id="stopKey" placeholder="Enter your unique key" required>
+                </div>
+
+                <button type="submit" id="stopBtn" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);">
+                    ⏹️ Stop Process
+                </button>
+            </form>
+
+            <div class="loading" id="stopLoading">
+                <div class="spinner"></div>
+                <p>Stopping process...</p>
+            </div>
+
+            <div id="stopResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code remains 100% unchanged
+        let currentUniqueKey = '';
+        const API_URL = window.location.origin;
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const loginBtn = document.getElementById('loginBtn');
+            const loginLoading = document.getElementById('loginLoading');
+            const loginResult = document.getElementById('loginResult');
+
+            loginBtn.disabled = true;
+            loginLoading.classList.add('active');
+            loginResult.style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phoneNumber })
+                });
+
+                const data = await response.json();
+                loginLoading.classList.remove('active');
+
+                if (data.success) {
+                    currentUniqueKey = data.uniqueKey;
+                    
+                    loginResult.className = 'result success';
+                    loginResult.style.display = 'block';
+                    
+                    if (data.connected) {
+                        loginResult.innerHTML = `
+                            <h3>✅ Connected Successfully!</h3>
+                            <div class="key-display">
+                                <strong>Your Unique Key:</strong><br>
+                                ${currentUniqueKey}
+                            </div>
+                            <p>Save this key to stop the process later.</p>
+                        `;
+                        document.getElementById('messagingSection').style.display = 'block';
+                    } else if (data.pairingCode) {
+                        loginResult.innerHTML = `
+                            <h3>🔐 Enter Pairing Code</h3>
+                            <div class="pairing-code">${data.pairingCode}</div>
+                            <div class="key-display">
+                                <strong>Your Unique Key:</strong><br>
+                                ${currentUniqueKey}
+                            </div>
+                            <p>Enter this code in WhatsApp: Settings → Linked Devices → Link a Device</p>
+                        `;
+                        setTimeout(() => checkConnectionStatus(), 3000);
+                    }
+                } else {
+                    loginResult.className = 'result error';
+                    loginResult.style.display = 'block';
+                    loginResult.innerHTML = `<strong>❌ Error:</strong> ${data.message || 'Connection failed'}`;
+                    loginBtn.disabled = false;
+                }
+            } catch (error) {
+                loginLoading.classList.remove('active');
+                loginResult.className = 'result error';
+                loginResult.style.display = 'block';
+                loginResult.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+                loginBtn.disabled = false;
+            }
+        });
+
+        async function checkConnectionStatus() {
+            if (!currentUniqueKey) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/getGroupUID`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uniqueKey: currentUniqueKey })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    const loginResult = document.getElementById('loginResult');
+                    loginResult.className = 'result success';
+                    loginResult.innerHTML = `
+                        <h3>✅ Connected Successfully!</h3>
+                        <div class="key-display">
+                            <strong>Your Unique Key:</strong><br>
+                            ${currentUniqueKey}
+                        </div>
+                        <p>Save this key to stop the process later.</p>
+                    `;
+                    document.getElementById('messagingSection').style.display = 'block';
+                } else {
+                    setTimeout(() => checkConnectionStatus(), 3000);
+                }
+            } catch (error) {
+                setTimeout(() => checkConnectionStatus(), 3000);
+            }
+        }
+
+        async function fetchGroups() {
+            if (!currentUniqueKey) {
+                alert('Please connect to WhatsApp first!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/getGroupUID`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uniqueKey: currentUniqueKey })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.groupUIDs) {
+                    const groupSelect = document.getElementById('groupSelect');
+                    groupSelect.innerHTML = '<option value="">-- Select a group --</option>';
+                    
+                    data.groupUIDs.forEach(group => {
+                        const option = document.createElement('option');
+                        option.value = group.groupId;
+                        option.textContent = group.groupName;
+                        groupSelect.appendChild(option);
+                    });
+
+                    document.getElementById('groupsList').style.display = 'block';
+                } else {
+                    alert('Error fetching groups: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        function selectGroup() {
+            const groupSelect = document.getElementById('groupSelect');
+            const selectedGroupId = groupSelect.value;
+            if (selectedGroupId) {
+                document.getElementById('target').value = selectedGroupId;
+            }
+        }
+
+        document.getElementById('messagingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const target = document.getElementById('target').value.trim();
+            const hatersName = document.getElementById('hatersName').value.trim();
+            const speed = document.getElementById('speed').value;
+            const messageFile = document.getElementById('messageFile').files[0];
+
+            if (!messageFile) {
+                alert('Please upload a message file!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('uniqueKey', currentUniqueKey);
+            formData.append('target', target);
+            formData.append('hatersName', hatersName);
+            formData.append('speed', speed);
+            formData.append('messageFile', messageFile);
+
+            const startBtn = document.getElementById('startBtn');
+            const messagingLoading = document.getElementById('messagingLoading');
+            const messagingResult = document.getElementById('messagingResult');
+
+            startBtn.disabled = true;
+            messagingLoading.classList.add('active');
+            messagingResult.style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_URL}/startMessaging`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                messagingLoading.classList.remove('active');
+
+                if (data.success) {
+                    messagingResult.className = 'result success';
+                    messagingResult.style.display = 'block';
+                    messagingResult.innerHTML = `
+                        <h3>✅ Process Started!</h3>
+                        <p>Sending ${data.messageCount} messages every ${speed} seconds.</p>
+                        <p><strong>Target:</strong> ${target}</p>
+                        <p>Use the "Stop Process" tab to stop Process.</p>
+                    `;
+                } else {
+                    messagingResult.className = 'result error';
+                    messagingResult.style.display = 'block';
+                    messagingResult.innerHTML = `<strong>❌ Error:</strong> ${data.message}`;
+                    startBtn.disabled = false;
+                }
+            } catch (error) {
+                messagingLoading.classList.remove('active');
+                messagingResult.className = 'result error';
+                messagingResult.style.display = 'block';
+                messagingResult.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+                startBtn.disabled = false;
+            }
+        });
+
+        document.getElementById('stopForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const stopKey = document.getElementById('stopKey').value.trim();
+            const stopBtn = document.getElementById('stopBtn');
+            const stopLoading = document.getElementById('stopLoading');
+            const stopResult = document.getElementById('stopResult');
+
+            stopBtn.disabled = true;
+            stopLoading.classList.add('active');
+            stopResult.style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_URL}/stop`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uniqueKey: stopKey })
+                });
+
+                const data = await response.json();
+                stopLoading.classList.remove('active');
+
+                if (data.success) {
+                    stopResult.className = 'result success';
+                    stopResult.style.display = 'block';
+                    stopResult.innerHTML = `
+                        <h3>✅ Process Stopped Successfully!</h3>
+                        <p>${data.message}</p>
+                    `;
+                    document.getElementById('stopKey').value = '';
+                } else {
+                    stopResult.className = 'result error';
+                    stopResult.style.display = 'block';
+                    stopResult.innerHTML = `<strong>❌ Error:</strong> ${data.message}`;
+                }
+                stopBtn.disabled = false;
+            } catch (error) {
+                stopLoading.classList.remove('active');
+                stopResult.className = 'result error';
+                stopResult.style.display = 'block';
+                stopResult.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+                stopBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
